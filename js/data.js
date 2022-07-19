@@ -62,4 +62,4 @@ const makePhotos = () => {
 };
 
 const IDS = makePhotos(HOW_MANY_POSTS);
-function IDS() {};
+IDS();

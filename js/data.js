@@ -61,3 +61,4 @@ const makePhotos = () => {
   return testData;
 };
 const IDS = makePhotos(HOW_MANY_POSTS);
+console.log(IDS);

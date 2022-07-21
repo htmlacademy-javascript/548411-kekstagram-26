@@ -1,9 +1,9 @@
 //модуль, задающий данные
 
 import {getRandomArrayElement}
-  from './util.js';
+  from './utils.js';
 import {getRandomPositiveInteger}
-  from './util.js';
+  from './utils.js';
 
 const HOW_MANY_POSTS = 25;
 const USERS_COUNT = 5;

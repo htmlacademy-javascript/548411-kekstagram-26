@@ -1,5 +1,4 @@
 import {users} from './data.js';
-import {getRandomPositiveInteger} from './utils.js';
 import {posts} from './data.js';
 
 const pictures = document.querySelector('.pictures');

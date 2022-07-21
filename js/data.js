@@ -1,11 +1,15 @@
 //модуль, задающий данные
 
 import {getRandomArrayElement}
-  from './util.js';
+  from './utils.js';
 import {getRandomPositiveInteger}
-  from './util.js';
+  from './utils.js';
 
-const HOW_MANY_POSTS = 25;
+const POST_COUNT = 25;
+const USERS_COUNT = 5;
+const COMMENTS_COUNT = 10;
+const MIN_LIKES_COUNT = 15;
+const MAX_LIKES_COUNT = 200;
 
 const COMMENTS = [
   'Всё отлично!',
@@ -20,7 +24,7 @@ const NAMES = [
   'Аноним'
 ];
 
-const DESCRIPTIONS = [
+const CAPTIONS = [
   'Класс',
   'Удачное',
   'Топ',
@@ -28,38 +32,41 @@ const DESCRIPTIONS = [
   'Отвратительно'
 ];
 
+const users = Array.from({length: USERS_COUNT}, (_, i) => ({
+  id: ++i,
+  name: getRandomArrayElement(NAMES),
+  avatar: `img/avatar-${i}.svg`
+}));
 
-const createPhoto = (id) => ({
-  id: id,
-  url: `photos/${id}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomPositiveInteger(15, 200),
-  comments: [{
-    id: getRandomPositiveInteger(1, 100) + Math.random(),
-    avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES),
-  },{
-    id: getRandomPositiveInteger(1, 100) + Math.random(),
-    avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES),
-  },{
-    id: getRandomPositiveInteger(1, 100) + Math.random(),
-    avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES),
-  }],
-});
+const comments = Array.from({length: COMMENTS_COUNT}, (_, i) => ({
+  id: ++i,
+  postId: getRandomPositiveInteger(1, POST_COUNT),
+  userId: getRandomPositiveInteger(1, USERS_COUNT),
+  message: getRandomArrayElement(COMMENTS),
+}));
 
+const posts = Array.from({length: POST_COUNT}, (_, i) => ({
+  id: ++i,
+  url: `photos/${i}.jpg`,
+  alt: '',
+  caption: getRandomArrayElement(CAPTIONS),
+  likesCount: getRandomPositiveInteger(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
+}));
 
-const makePhotos = () => {
-  const testData = [];
-  for (let i = 1; i <= 25; i++) {
-    testData.push(createPhoto(i));
-  }
-  return testData;
-};
+function joinCommentsAndUsers() {
+  comments.forEach((comment) => {
+    comment.name = users.filter((user) => user.id === comment.userId)[0]['name'];
+    comment.avatar = users.filter((user) => user.id === comment.userId)[0]['avatar'];
+  });
+}
 
-const IDS = makePhotos(HOW_MANY_POSTS);
-IDS();
+function joinPostsAndComments() {
+  posts.forEach((post) => {
+    post.comments = comments.filter((comment) => post.id === comment.postId);
+  });
+}
+
+joinCommentsAndUsers();
+joinPostsAndComments();
+
+export {users, posts};

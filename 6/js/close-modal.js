@@ -1,6 +1,6 @@
 import {isEscapeKey} from './utils.js';
 
-function closeModal(modal, btn) {
+function closeModal(modal, btn = null) {
   const body = document.querySelector('body');
 
   function close() {
@@ -15,14 +15,17 @@ function closeModal(modal, btn) {
       close();
     }
   }
-
   function onCloseModal(e) {
     e.preventDefault();
     close();
   }
 
-  btn.addEventListener('click', onCloseModal);
-  document.addEventListener('keydown', onEscKeydown);
+  if (btn) {
+    btn.addEventListener('click', onCloseModal);
+    document.addEventListener('keydown', onEscKeydown);
+  } else {
+    close();
+  }
 }
 
 export {closeModal};

@@ -1,10 +1,8 @@
 // точка входа. Модуль, связывающий другие модули
-import {getPosts} from './data.js';
+import {generatePosts} from './data.js';
 import {createPostPreviews} from './post-previews.js';
-import {createPost} from './create-post.js';
-import './create-post.js';
+import {showPost} from './show-post.js';
 
-
-const posts = getPosts();
+const posts = generatePosts();
 createPostPreviews(posts);
-createPost(posts[0]);
+showPost(posts);

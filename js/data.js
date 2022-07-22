@@ -28,7 +28,7 @@ const NAMES = [
   'Аноним'
 ];
 
-const CAPTIONS = [
+const MESSAGE = [
   'Класс',
   'Удачное',
   'Топ',
@@ -36,7 +36,7 @@ const CAPTIONS = [
   'Отвратительно'
 ];
 
-function getPosts () {
+function generatePosts () {
   const users = Array.from({length: USERS_COUNT}, (_, i) => ({
     id: ++i,
     name: getRandomArrayElement(NAMES),
@@ -54,7 +54,7 @@ function getPosts () {
     id: ++i,
     url: `photos/${i}.jpg`,
     alt: '',
-    caption: getRandomArrayElement(CAPTIONS),
+    caption: getRandomArrayElement(MESSAGE),
     likesCount: getRandomPositiveInteger(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
   }));
 
@@ -72,4 +72,5 @@ function getPosts () {
   return posts;
 }
 
-export {getPosts};
+export {generatePosts};
+

@@ -31,6 +31,9 @@ function checkStringLength (checkedString, maxLength) {
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
+const isEscapeKey = (e) => e.key === 'Escape';
+
 export {getRandomArrayElement};
 export {getRandomPositiveInteger};
 export {checkStringLength};
+export {isEscapeKey};

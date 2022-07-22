@@ -1,18 +1,18 @@
-import {posts} from './data.js';
+function createPostPreviews(posts) {
+  const pictures = document.querySelector('.pictures');
+  const templateFragment = document.querySelector('#picture').content;
+  const template = templateFragment.querySelector('.picture');
+  const fragment = document.createDocumentFragment();
 
-const pictures = document.querySelector('.pictures');
-const templateFragment = document.querySelector('#picture').content;
-const template = templateFragment.querySelector('.picture');
+  for (let i = 0; i < posts.length; i++) {
+    const element = template.cloneNode(true);
+    element.dataset.postId = posts[i].id;
+    element.querySelector('.picture__img').src = posts[i].url;
+    element.querySelector('.picture__comments').textContent = posts[i].comments.length;
+    element.querySelector('.picture__likes').textContent = posts[i].likesCount;
 
-const fragment = document.createDocumentFragment();
-
-for (let i = 0; i < posts.length; i++) {
-  const element = template.cloneNode(true);
-  element.querySelector('.picture__img').setAttribute('src', posts[i].url);
-  element.querySelector('.picture__comments').textContent = posts[i].comments.length;
-  element.querySelector('.picture__likes').textContent = posts[i].likesCount;
-
-  fragment.appendChild(element);
+    fragment.appendChild(element);
+  }
+  pictures.appendChild(fragment);
 }
-
-pictures.appendChild(fragment);
+export {createPostPreviews};
